@@ -1,7 +1,9 @@
 [![playwright Tests](https://github.com/idkman9411/SE333-Assignment6/actions/workflows/playwright.yml/badge.svg)](https://github.com/idkman9411/SE333-Assignment6/actions/workflows/playwright.yml)
 
+Link to repository: https://github.com/idkman9411/SE333-Assignment6
 
 
+(Browser launch headless is set to 'true' for GitHub testing)
 
 For the manual UI testing, I found the process to be kinda fun. It was also easy to do. Even without the instructions, it was intuitive on what I needed to do, as it is incredibly similar on how a person normal navigates a website. Having the assert text button made asserting easy, and the pop-up that asks if it grabbed the correct thing was very helpful for both ensure you did actually click and for clarify what exactly you are asserting.
 
