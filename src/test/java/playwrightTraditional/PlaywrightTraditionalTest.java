@@ -1,9 +1,11 @@
+package playwrightTraditional;
+
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.*;
 import org.junit.jupiter.api.Test;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-import java.util.*;
+
 import java.nio.file.Paths;
 
 
@@ -16,7 +18,7 @@ public class PlaywrightTraditionalTest {
                     .setHeadless(false));
             BrowserContext context = browser.newContext(new Browser.NewContextOptions()
                     .setViewportSize(1280, 720)
-                    .setRecordVideoDir(Paths.get("C:\\Users\\idkma\\Videos"))
+                    .setRecordVideoDir(Paths.get(System.getProperty("user.dir"), "testVideos"))
                     .setRecordVideoSize(1280, 720));
             Page page = context.newPage();
             System.out.println(page.video().path());
@@ -51,6 +53,9 @@ public class PlaywrightTraditionalTest {
             page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Enter Promo Code")).fill("TEST");
             page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Apply Promo Code")).click();
             assertThat(page.locator("#js-voucher-result")).containsText("The coupon code entered is not valid.");
+            //Locator bttn = page.getByText("Proceed To Checkout").first();
+            //bttn.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.ATTACHED).setTimeout(60000));
+            //bttn.scrollIntoViewIfNeeded();
             page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Proceed To Checkout")).first().click();
             //page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Proceed To Checkout")).nth(1).click();
             //
@@ -58,19 +63,19 @@ public class PlaywrightTraditionalTest {
             page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Proceed As Guest")).click();
             assertThat(page.getByLabel("main")).containsText("Contact Information");
             page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("First Name (required)")).click();
-            page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("First Name (required)")).fill("Ahnna");
+            page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("First Name (required)")).fill("Jane");
             page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Last Name (required)")).click();
-            page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Last Name (required)")).fill("Williams");
+            page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Last Name (required)")).fill("Doe");
             page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Email address (required)")).click();
-            page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Email address (required)")).fill("awill328@depaul.edu");
+            page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Email address (required)")).fill("dpalumni@depaul.edu");
             page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Phone Number (required)")).click();
-            page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Phone Number (required)")).fill("2177615234");
+            page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Phone Number (required)")).fill("3123628000");
             assertThat(page.getByLabel("main")).containsText("Order Subtotal $164.98");
             assertThat(page.getByLabel("main")).containsText("Handling To support the bookstore's ability to provide a best-in-class online and campus bookstore experience, and to offset the rising costs of goods and services, an online handling fee of $3.00 per transaction is charged. This fee offsets additional expenses including fulfillment, distribution, operational optimization, and personalized service. No minimum purchase required. $3.00");
             assertThat(page.getByLabel("main")).containsText("Tax TBD");
             assertThat(page.getByLabel("main")).containsText("Total $167.98 167.98 $");
             page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Continue")).click();
-            assertThat(page.getByLabel("main")).containsText("Full Name Ahnna Williams Email Address awill328@depaul.edu Phone Number +12177615234");
+            assertThat(page.getByLabel("main")).containsText("Full Name Jane Doe Email Address dpalumni@depaul.edu Phone Number +13123628000");
             assertThat(page.locator("#bnedPickupPersonForm")).containsText("Pickup Location DePaul University Loop Campus & SAIC 1 E. Jackson Boulevard, , Illinois, Chicago, 60604");
             assertThat(page.getByRole(AriaRole.RADIO, new Page.GetByRoleOptions().setName("I'll pick them up"))).isChecked();
             assertThat(page.getByLabel("main")).containsText("Order Subtotal $164.98");
@@ -78,7 +83,13 @@ public class PlaywrightTraditionalTest {
             assertThat(page.getByLabel("main")).containsText("Tax TBD");
             assertThat(page.getByLabel("main")).containsText("Total $167.98 167.98 $");
             assertThat(page.getByLabel("main")).containsText("JBL Quantum True Wireless Noise Cancelling Gaming Earbuds- Black Quantity: Qty: 1 $164.98");
+            //Locator contin = page.getByText("Continue").first();
+            //contin.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.ATTACHED).setTimeout(60000));
+            //contin.scrollIntoViewIfNeeded();
             page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Continue")).click();
+
+            //
+            page.waitForURL("https://depaul.bncollege.com/checkout/multi/payment-method/add");
             assertThat(page.getByLabel("main")).containsText("Order Subtotal $164.98");
             assertThat(page.getByLabel("main")).containsText("Handling To support the bookstore's ability to provide a best-in-class online and campus bookstore experience, and to offset the rising costs of goods and services, an online handling fee of $3.00 per transaction is charged. This fee offsets additional expenses including fulfillment, distribution, operational optimization, and personalized service. No minimum purchase required. $3.00");
             assertThat(page.getByLabel("main")).containsText("Tax $17.22");
