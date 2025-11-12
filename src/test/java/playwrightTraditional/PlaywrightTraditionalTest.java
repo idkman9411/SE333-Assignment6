@@ -15,7 +15,7 @@ public class PlaywrightTraditionalTest {
         System.out.println("Start");
         try (Playwright playwright = Playwright.create()) {
             Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
-                    .setHeadless(false));
+                    .setHeadless(true)); //set to True for GitHub
             BrowserContext context = browser.newContext(new Browser.NewContextOptions()
                     .setViewportSize(1280, 720)
                     .setRecordVideoDir(Paths.get(System.getProperty("user.dir"), "testVideos"))

@@ -15,7 +15,7 @@ public class PlaywrightLLMTests {
 		System.out.println("Start Playwright LLM Test");
 		try (Playwright playwright = Playwright.create()) {
 			Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
-					.setHeadless(false));
+					.setHeadless(true)); //set to true for GitHub
 			BrowserContext context = browser.newContext(new Browser.NewContextOptions()
 					.setViewportSize(1280, 720)
 					.setRecordVideoDir(Paths.get(System.getProperty("user.dir"), "testVideos"))
