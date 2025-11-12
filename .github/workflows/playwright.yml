@@ -19,4 +19,4 @@ jobs:
         - name: Run Traditional Test
           run: mvn test -Dtest="PlaywrightTraditionalTest"
         - name: Run LLM Test
-          run: mvn test -Dtest="PlaywrightLLmTests"
+          run: mvn test -Dtest="PlaywrightLLMTests"
