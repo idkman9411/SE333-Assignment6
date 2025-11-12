@@ -16,6 +16,10 @@ jobs:
             java-version: '21'
             distribution: 'temurin'
             architecture: x64
+        - name: Build & Install
+          run: mvn -B install -D skipTests --no-transfer-progress
+        - name: Ensure browsers are installed
+          run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
         - name: Run Traditional Test
           run: mvn test -Dtest="PlaywrightTraditionalTest"
         - name: Run LLM Test
